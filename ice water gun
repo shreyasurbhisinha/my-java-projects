@@ -1,0 +1,93 @@
+import java.util.Scanner;
+
+class IceWaterGun {
+    private int waterLevel; // Represents the amount of water in the gun (in liters)
+    private boolean isFrozen; // Indicates if the water is frozen
+
+    public IceWaterGun() {
+        this.waterLevel = 0;
+        this.isFrozen = false;
+    }
+
+    // Fill the gun with water
+    public void fillGun(int liters) {
+        if (liters > 0) {
+            this.waterLevel += liters;
+            System.out.println("Gun filled with " + liters + " liters of water.");
+        } else {
+            System.out.println("Invalid amount of water.");
+        }
+    }
+
+    // Freeze the water in the gun
+    public void freeze() {
+        if (this.waterLevel > 0) {
+            this.isFrozen = true;
+            System.out.println("Water is now frozen.");
+        } else {
+            System.out.println("No water in the gun to freeze.");
+        }
+    }
+
+    // Shoot the gun
+    public void shoot() {
+        if (this.waterLevel > 0) {
+            if (this.isFrozen) {
+                System.out.println("Shooting ice cubes!");
+                this.waterLevel = 0; // Ice is used up
+                this.isFrozen = false;
+            } else {
+                System.out.println("Shooting water!");
+                this.waterLevel = 0; // Water is used up
+            }
+        } else {
+            System.out.println("The gun is empty.");
+        }
+    }
+
+    // Display the current status of the gun
+    public void displayStatus() {
+        System.out.println("Current water level: " + this.waterLevel + " liters.");
+        System.out.println("Is water frozen? " + (this.isFrozen ? "Yes" : "No"));
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        IceWaterGun gun = new IceWaterGun();
+        
+        while (true) {
+            System.out.println("\n1. Fill Gun");
+            System.out.println("2. Freeze Water");
+            System.out.println("3. Shoot");
+            System.out.println("4. Display Status");
+            System.out.println("5. Exit");
+            System.out.print("Choose an option: ");
+            
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter amount of water (liters): ");
+                    int liters = scanner.nextInt();
+                    gun.fillGun(liters);
+                    break;
+                case 2:
+                    gun.freeze();
+                    break;
+                case 3:
+                    gun.shoot();
+                    break;
+                case 4:
+                    gun.displayStatus();
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+}
